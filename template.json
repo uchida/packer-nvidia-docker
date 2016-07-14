@@ -1,0 +1,46 @@
+{
+  "variables": {
+    "aws_access_key": "{{env `AWS_ACCESS_KEY_ID`}}",
+    "aws_secret_key": "{{env `AWS_SECRET_KEY_ID`}}",
+    "region": "ap-northeast-1",
+    "source_ami": "ami-b7d829d6",
+    "spot_price": "0"
+  },
+  "builders": [
+    {
+      "type": "amazon-ebs",
+      "access_key": "{{user `aws_access_key`}}",
+      "secret_key": "{{user `aws_secret_key`}}",
+      "region": "{{user `region`}}",
+      "source_ami": "{{user `source_ami`}}",
+      "ssh_username": "ubuntu",
+      "ami_name": "ubuntu-nvidia-docker {{isotime \"2006-01-02T15:04:05Z\" | clean_ami_name}}",
+      "instance_type": "t2.nano",
+      "spot_price": "{{user `spot_price`}}"
+    }
+  ],
+  "provisioners": [
+    {
+      "type": "shell",
+      "script": "scripts/base.sh",
+      "execute_command": "{{ .Vars }} sudo -E bash '{{ .Path }}'"
+    },
+    {
+      "type": "shell",
+      "inline": [
+          "sudo apt-get update",
+          "sudo apt-get install -y python",
+          "sudo apt-get clean"
+      ]
+    },
+    {
+      "type": "ansible",
+      "playbook_file": "playbook.yml"
+    },
+    {
+      "type": "shell",
+      "script": "scripts/cleanup.sh",
+      "execute_command": "{{ .Vars }} sudo -E bash '{{ .Path }}'"
+    }
+  ]
+}

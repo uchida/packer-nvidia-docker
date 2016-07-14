@@ -1,0 +1,28 @@
+machine:
+  environment:
+    PATH: "${HOME}/bin:${PATH}"
+    PACKER_URL: "https://releases.hashicorp.com/packer/0.10.1/packer_0.10.1_linux_amd64.zip"
+    PACKER_SHA256SUM: "7d51fc5db19d02bbf32278a8116830fae33a3f9bd4440a58d23ad7c863e92e28"
+
+dependencies:
+  cache_directories:
+    - "~/bin"
+  override:
+    - |
+      if [ ! -e "${HOME}/bin/packer" ]; then
+        curl -Lo packer.zip "${PACKER_URL}"
+        echo "${PACKER_SHA256SUM}  packer.zip" | sha256sum -c || exit $?
+        unzip -d ~/bin packer.zip
+      fi
+    - packer version
+    - sudo pip install ansible==2.1.0 ansible-lint
+    - ansible --version
+    - ansible-lint --version
+
+test:
+  override:
+    - find scripts -name '*.sh' -print0 | xargs -0 sh -n
+    - ansible-playbook -i localhost, --syntax-check playbook.yml
+    - ansible-lint playbook.yml
+    - packer validate template.json
+
