@@ -20,9 +20,9 @@
         id=58118E89F3A912897C070ADBF76221572C52609D
         state=present
 
-    - name: python-apt is installed for prerequisite for apt_repository ansible module
+    - name: software-properties-common is installed for prerequisite for apt_repository ansible module
       apt:
-        name=python-apt
+        name=software-properties-common
         state=present
 
     - name: docker APT repository is registered
