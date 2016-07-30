@@ -53,7 +53,7 @@
 
     - name: graphics-driver ppa APT repository is registered
       apt_repository:
-        repo='ppa:graphics-drivers/ppa'
+        repo=ppa:graphics-drivers/ppa
         filename=graphic-driver
         state=present
         mode=0644
