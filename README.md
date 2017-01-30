@@ -37,6 +37,30 @@ to build AMI on other region, change `"region"` and `"source_ami"` with packer's
 [`-var/-var-file` options](https://www.packer.io/docs/templates/user-variables.html)
 or directly edit them in [`template.json`](template.json).
 
+## Example usage for nvidia-docker
+
+Use tensorflow
+
+```
+$ sudo nvidia-docker run -it -p 8888:8888 tensorflow/tensorflow:latest-gpu
+```
+
+Use chainer
+
+```
+$ sudo nvidia-docker run -it chainer/chainer /bin/bash
+```
+
+if you want to run nvidia-docker without `sudo`, run
+
+```
+$ sudo groupadd docker
+$ sudo usermod -aG docker $USER
+```
+
+see [Post-installation steps for Linux](https://docs.docker.com/engine/installation/linux/linux-postinstall/)
+for detail.
+
 ## License
 
 Contents in this repository are dedicated to
