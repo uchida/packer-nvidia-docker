@@ -2,8 +2,8 @@
 
 - hosts: all
   vars:
-    nvidia_driver_version: 370
-    nvidia_docker_package_url: https://github.com/NVIDIA/nvidia-docker/releases/download/v1.0.0-rc.3/nvidia-docker_1.0.0.rc.3-1_amd64.deb
+    nvidia_driver_version: 378
+    nvidia_docker_package_url: https://github.com/NVIDIA/nvidia-docker/releases/download/v1.0.0/nvidia-docker_1.0.0-1_amd64.deb
   become: yes
   tasks:
     - name: packages related for APT with https are installed
