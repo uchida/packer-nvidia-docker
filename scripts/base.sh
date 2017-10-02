@@ -1,5 +1,5 @@
 #!/bin/bash
 set -ex
 apt-get update
-apt-get upgrade -y
+DEBIAN_FRONTEND=noninteractive apt-get upgrade -yq
 echo "UseDNS no" >> /etc/ssh/sshd_config

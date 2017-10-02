@@ -20,7 +20,7 @@ To build images, simply run:
 $ git clone https://github.com/uchida/packer-nvidia-docker
 $ cd packer-nvidia-docker
 $ export AWS_ACCESS_KEY_ID=xxx
-$ export AWS_SECRET_KEY_ID=xxx
+$ export AWS_SECRET_ACCESS_KEY=xxx
 $ packer build template.json
 ```
 
